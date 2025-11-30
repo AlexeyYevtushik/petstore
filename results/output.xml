@@ -1,77 +1,522 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.1.1 (Python 3.13.5 on win32)" generated="20251130 14:32:52.952" rpa="false" schemaversion="4">
-<suite id="s1" name="Test Pet" source="C:\Repo\petstore\tests\test_pet.robot">
-<test id="s1-t1" name="Create And Find Pet By Status" line="5">
+<robot generator="Robot 6.1.1 (Python 3.13.5 on win32)" generated="20251130 16:49:17.917" rpa="false" schemaversion="4">
+<suite id="s1" name="Test Oop Features" source="C:\Repo\petstore\tests\test_oop_features.robot">
+<test id="s1-t1" name="Test Basic OOP Features With Entity Operations" line="11">
 <kw name="Create Dictionary" library="BuiltIn">
-<var>${pet}</var>
-<arg>id=77777</arg>
-<arg>name=RoboDog</arg>
-<arg>category=${{{"id":1,"name":"Dogs"}}}</arg>
-<arg>photoUrls=${{["http://example.com/dog.jpg"]}}</arg>
-<arg>tags=${{[{"id":1,"name":"tag1"}]}}</arg>
-<arg>status=available</arg>
+<var>${user_data}</var>
+<arg>id=${USER_ID_1}</arg>
+<arg>username=oop_user_${USER_ID_1}</arg>
+<arg>firstName=OOP</arg>
+<arg>lastName=Test</arg>
+<arg>email=oop@example.com</arg>
+<arg>password=pass123</arg>
+<arg>phone=+100000000</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20251130 14:32:53.121" level="INFO">${pet} = {'id': '77777', 'name': 'RoboDog', 'category': {'id': 1, 'name': 'Dogs'}, 'photoUrls': ['http://example.com/dog.jpg'], 'tags': [{'id': 1, 'name': 'tag1'}], 'status': 'available'}</msg>
-<status status="PASS" starttime="20251130 14:32:53.120" endtime="20251130 14:32:53.122"/>
+<msg timestamp="20251130 16:49:18.087" level="INFO">${user_data} = {'id': '8001', 'username': 'oop_user_8001', 'firstName': 'OOP', 'lastName': 'Test', 'email': 'oop@example.com', 'password': 'pass123', 'phone': '+100000000'}</msg>
+<status status="PASS" starttime="20251130 16:49:18.086" endtime="20251130 16:49:18.087"/>
 </kw>
-<kw name="Create Pet" library="PetstoreLibrary">
-<arg>${pet}</arg>
-<status status="PASS" starttime="20251130 14:32:53.122" endtime="20251130 14:32:54.212"/>
+<kw name="Create User" library="AdvancedPetstoreLibrary">
+<arg>${user_data}</arg>
+<doc>Public method - creates a user
+Demonstrates using protected methods from parent class</doc>
+<msg timestamp="20251130 16:49:18.092" level="DEBUG">Starting new HTTPS connection (1): petstore.swagger.io:443</msg>
+<msg timestamp="20251130 16:49:19.199" level="DEBUG">https://petstore.swagger.io:443 "POST /v2/user HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:18.087" endtime="20251130 16:49:19.199"/>
 </kw>
-<kw name="Should Be Status" library="PetstoreLibrary">
+<kw name="Should Be Status" library="AdvancedPetstoreLibrary">
 <arg>200</arg>
-<status status="PASS" starttime="20251130 14:32:54.212" endtime="20251130 14:32:54.213"/>
-</kw>
-<kw name="Find Pets By Status" library="PetstoreLibrary">
-<arg>available</arg>
-<status status="PASS" starttime="20251130 14:32:54.213" endtime="20251130 14:32:55.663"/>
-</kw>
-<kw name="Should Be Status" library="PetstoreLibrary">
-<arg>200</arg>
-<status status="PASS" starttime="20251130 14:32:55.663" endtime="20251130 14:32:55.664"/>
-</kw>
-<kw name="Get Last Json" library="PetstoreLibrary">
-<var>${list}</var>
-<msg timestamp="20251130 14:32:55.675" level="INFO">${list} = [{'id': 152, 'category': {'id': 0, 'name': 'string'}, 'name': 'Moggie', 'photoUrls': ['string'], 'tags': [{'id': 0, 'name': 'string'}], 'status': 'available'}, {'id': 867, 'category': {'id': 0, 'name'...</msg>
-<status status="PASS" starttime="20251130 14:32:55.664" endtime="20251130 14:32:55.675"/>
+<doc>Public method - asserts response status</doc>
+<status status="PASS" starttime="20251130 16:49:19.200" endtime="20251130 16:49:19.201"/>
 </kw>
 <kw name="Log" library="BuiltIn">
-<arg>Found ${list.__len__()} pets</arg>
+<arg>User created successfully - protected methods working</arg>
 <doc>Logs the given message with the given level.</doc>
-<msg timestamp="20251130 14:32:55.676" level="INFO">Found 661 pets</msg>
-<status status="PASS" starttime="20251130 14:32:55.676" endtime="20251130 14:32:55.677"/>
+<msg timestamp="20251130 16:49:19.201" level="INFO">User created successfully - protected methods working</msg>
+<status status="PASS" starttime="20251130 16:49:19.201" endtime="20251130 16:49:19.201"/>
 </kw>
-<kw name="Get Pet" library="PetstoreLibrary">
-<arg>77777</arg>
-<status status="PASS" starttime="20251130 14:32:55.677" endtime="20251130 14:32:56.913"/>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${pet_data}</var>
+<arg>id=${PET_ID_1}</arg>
+<arg>name=OOPPet${PET_ID_1}</arg>
+<arg>status=available</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251130 16:49:19.203" level="INFO">${pet_data} = {'id': '8001', 'name': 'OOPPet8001', 'status': 'available'}</msg>
+<status status="PASS" starttime="20251130 16:49:19.202" endtime="20251130 16:49:19.203"/>
 </kw>
-<kw name="Should Be Status" library="PetstoreLibrary">
+<kw name="Create Pet" library="AdvancedPetstoreLibrary">
+<arg>${pet_data}</arg>
+<doc>Public method - creates a pet</doc>
+<msg timestamp="20251130 16:49:19.333" level="DEBUG">https://petstore.swagger.io:443 "POST /v2/pet HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:19.203" endtime="20251130 16:49:19.334"/>
+</kw>
+<kw name="Should Be Status" library="AdvancedPetstoreLibrary">
 <arg>200</arg>
-<status status="PASS" starttime="20251130 14:32:56.915" endtime="20251130 14:32:56.915"/>
+<doc>Public method - asserts response status</doc>
+<status status="PASS" starttime="20251130 16:49:19.336" endtime="20251130 16:49:19.337"/>
 </kw>
-<kw name="Delete Pet" library="PetstoreLibrary">
-<arg>77777</arg>
-<status status="PASS" starttime="20251130 14:32:56.918" endtime="20251130 14:32:58.005"/>
+<kw name="Log" library="BuiltIn">
+<arg>Pet created successfully - inheritance working</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:19.339" level="INFO">Pet created successfully - inheritance working</msg>
+<status status="PASS" starttime="20251130 16:49:19.338" endtime="20251130 16:49:19.339"/>
 </kw>
-<kw name="Should Be Status" library="PetstoreLibrary">
-<arg>200</arg>
-<status status="PASS" starttime="20251130 14:32:58.006" endtime="20251130 14:32:58.007"/>
+<kw name="Get Performance Stats" library="AdvancedPetstoreLibrary">
+<var>${performance_stats}</var>
+<doc>Public method to access private performance data
+Demonstrates encapsulation - private data accessed via public interface</doc>
+<msg timestamp="20251130 16:49:19.341" level="INFO">${performance_stats} = {'total_operations': 2, 'average_duration': 0.6211495, 'min_duration': 0.130416, 'max_duration': 1.111883, 'recent_operations': [{'operation': 'create_user', 'duration': 1.111883, 'timestamp': datetim...</msg>
+<status status="PASS" starttime="20251130 16:49:19.340" endtime="20251130 16:49:19.341"/>
 </kw>
-<kw name="Cleanup Created" library="PetstoreLibrary">
-<status status="PASS" starttime="20251130 14:32:58.008" endtime="20251130 14:32:59.090"/>
+<kw name="Log" library="BuiltIn">
+<arg>Performance stats: ${performance_stats}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:19.345" level="INFO">Performance stats: {'total_operations': 2, 'average_duration': 0.6211495, 'min_duration': 0.130416, 'max_duration': 1.111883, 'recent_operations': [{'operation': 'create_user', 'duration': 1.111883, 'timestamp': datetime.datetime(2025, 11, 30, 16, 49, 19, 199277)}, {'operation': 'create_pet', 'duration': 0.130416, 'timestamp': datetime.datetime(2025, 11, 30, 16, 49, 19, 333996)}]}</msg>
+<status status="PASS" starttime="20251130 16:49:19.344" endtime="20251130 16:49:19.345"/>
 </kw>
-<status status="PASS" starttime="20251130 14:32:53.119" endtime="20251130 14:32:59.092"/>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${performance_stats['total_operations']} &gt;= 2</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20251130 16:49:19.347" endtime="20251130 16:49:19.351"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Private performance tracking working via public interface</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:19.353" level="INFO">Private performance tracking working via public interface</msg>
+<status status="PASS" starttime="20251130 16:49:19.352" endtime="20251130 16:49:19.353"/>
+</kw>
+<kw name="Get Last Json" library="AdvancedPetstoreLibrary">
+<var>${json_data}</var>
+<doc>Public method - gets last JSON response</doc>
+<msg timestamp="20251130 16:49:19.355" level="INFO">${json_data} = {'id': 8001, 'name': 'OOPPet8001', 'photoUrls': [], 'tags': [], 'status': 'available'}</msg>
+<status status="PASS" starttime="20251130 16:49:19.354" endtime="20251130 16:49:19.355"/>
+</kw>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<arg>${json_data}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<msg timestamp="20251130 16:49:19.357" level="INFO">Length is 5</msg>
+<status status="PASS" starttime="20251130 16:49:19.356" endtime="20251130 16:49:19.357"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Response data accessible through public methods</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:19.359" level="INFO">Response data accessible through public methods</msg>
+<status status="PASS" starttime="20251130 16:49:19.359" endtime="20251130 16:49:19.359"/>
+</kw>
+<kw name="Cleanup Created" library="AdvancedPetstoreLibrary" type="TEARDOWN">
+<doc>Public method - enhanced cleanup with performance tracking
+Demonstrates using both protected and private methods</doc>
+<msg timestamp="20251130 16:49:19.495" level="DEBUG">https://petstore.swagger.io:443 "DELETE /v2/user/oop_user_8001 HTTP/1.1" 200 None</msg>
+<msg timestamp="20251130 16:49:19.627" level="DEBUG">https://petstore.swagger.io:443 "DELETE /v2/pet/8001 HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:19.361" endtime="20251130 16:49:19.628"/>
+</kw>
+<doc>Tests OOP features through normal library usage</doc>
+<status status="PASS" starttime="20251130 16:49:18.085" endtime="20251130 16:49:19.630"/>
 </test>
-<status status="PASS" starttime="20251130 14:32:52.955" endtime="20251130 14:32:59.098"/>
+<test id="s1-t2" name="Test Super Usage With Multiple Operations" line="50">
+<for flavor="IN RANGE">
+<var>${i}</var>
+<value>1</value>
+<value>6</value>
+<iter>
+<var name="${i}">1</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${pet_data}</var>
+<arg>id=70${i}</arg>
+<arg>name=MultiPet70${i}</arg>
+<arg>status=available</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251130 16:49:19.641" level="INFO">${pet_data} = {'id': '701', 'name': 'MultiPet701', 'status': 'available'}</msg>
+<status status="PASS" starttime="20251130 16:49:19.639" endtime="20251130 16:49:19.641"/>
+</kw>
+<kw name="Create Pet" library="AdvancedPetstoreLibrary">
+<arg>${pet_data}</arg>
+<doc>Public method - creates a pet</doc>
+<msg timestamp="20251130 16:49:19.777" level="DEBUG">https://petstore.swagger.io:443 "POST /v2/pet HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:19.641" endtime="20251130 16:49:19.779"/>
+</kw>
+<kw name="Should Be Status" library="AdvancedPetstoreLibrary">
+<arg>200</arg>
+<doc>Public method - asserts response status</doc>
+<status status="PASS" starttime="20251130 16:49:19.780" endtime="20251130 16:49:19.780"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Created pet 70${i} - testing inherited methods</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:19.781" level="INFO">Created pet 701 - testing inherited methods</msg>
+<status status="PASS" starttime="20251130 16:49:19.781" endtime="20251130 16:49:19.781"/>
+</kw>
+<status status="PASS" starttime="20251130 16:49:19.639" endtime="20251130 16:49:19.781"/>
+</iter>
+<iter>
+<var name="${i}">2</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${pet_data}</var>
+<arg>id=70${i}</arg>
+<arg>name=MultiPet70${i}</arg>
+<arg>status=available</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251130 16:49:19.783" level="INFO">${pet_data} = {'id': '702', 'name': 'MultiPet702', 'status': 'available'}</msg>
+<status status="PASS" starttime="20251130 16:49:19.782" endtime="20251130 16:49:19.784"/>
+</kw>
+<kw name="Create Pet" library="AdvancedPetstoreLibrary">
+<arg>${pet_data}</arg>
+<doc>Public method - creates a pet</doc>
+<msg timestamp="20251130 16:49:19.918" level="DEBUG">https://petstore.swagger.io:443 "POST /v2/pet HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:19.784" endtime="20251130 16:49:19.919"/>
+</kw>
+<kw name="Should Be Status" library="AdvancedPetstoreLibrary">
+<arg>200</arg>
+<doc>Public method - asserts response status</doc>
+<status status="PASS" starttime="20251130 16:49:19.920" endtime="20251130 16:49:19.920"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Created pet 70${i} - testing inherited methods</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:19.921" level="INFO">Created pet 702 - testing inherited methods</msg>
+<status status="PASS" starttime="20251130 16:49:19.921" endtime="20251130 16:49:19.921"/>
+</kw>
+<status status="PASS" starttime="20251130 16:49:19.782" endtime="20251130 16:49:19.921"/>
+</iter>
+<iter>
+<var name="${i}">3</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${pet_data}</var>
+<arg>id=70${i}</arg>
+<arg>name=MultiPet70${i}</arg>
+<arg>status=available</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251130 16:49:19.923" level="INFO">${pet_data} = {'id': '703', 'name': 'MultiPet703', 'status': 'available'}</msg>
+<status status="PASS" starttime="20251130 16:49:19.922" endtime="20251130 16:49:19.923"/>
+</kw>
+<kw name="Create Pet" library="AdvancedPetstoreLibrary">
+<arg>${pet_data}</arg>
+<doc>Public method - creates a pet</doc>
+<msg timestamp="20251130 16:49:20.056" level="DEBUG">https://petstore.swagger.io:443 "POST /v2/pet HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:19.924" endtime="20251130 16:49:20.057"/>
+</kw>
+<kw name="Should Be Status" library="AdvancedPetstoreLibrary">
+<arg>200</arg>
+<doc>Public method - asserts response status</doc>
+<status status="PASS" starttime="20251130 16:49:20.057" endtime="20251130 16:49:20.058"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Created pet 70${i} - testing inherited methods</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:20.059" level="INFO">Created pet 703 - testing inherited methods</msg>
+<status status="PASS" starttime="20251130 16:49:20.058" endtime="20251130 16:49:20.059"/>
+</kw>
+<status status="PASS" starttime="20251130 16:49:19.922" endtime="20251130 16:49:20.059"/>
+</iter>
+<iter>
+<var name="${i}">4</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${pet_data}</var>
+<arg>id=70${i}</arg>
+<arg>name=MultiPet70${i}</arg>
+<arg>status=available</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251130 16:49:20.061" level="INFO">${pet_data} = {'id': '704', 'name': 'MultiPet704', 'status': 'available'}</msg>
+<status status="PASS" starttime="20251130 16:49:20.060" endtime="20251130 16:49:20.061"/>
+</kw>
+<kw name="Create Pet" library="AdvancedPetstoreLibrary">
+<arg>${pet_data}</arg>
+<doc>Public method - creates a pet</doc>
+<msg timestamp="20251130 16:49:20.193" level="DEBUG">https://petstore.swagger.io:443 "POST /v2/pet HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:20.061" endtime="20251130 16:49:20.194"/>
+</kw>
+<kw name="Should Be Status" library="AdvancedPetstoreLibrary">
+<arg>200</arg>
+<doc>Public method - asserts response status</doc>
+<status status="PASS" starttime="20251130 16:49:20.194" endtime="20251130 16:49:20.195"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Created pet 70${i} - testing inherited methods</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:20.196" level="INFO">Created pet 704 - testing inherited methods</msg>
+<status status="PASS" starttime="20251130 16:49:20.195" endtime="20251130 16:49:20.196"/>
+</kw>
+<status status="PASS" starttime="20251130 16:49:20.060" endtime="20251130 16:49:20.196"/>
+</iter>
+<iter>
+<var name="${i}">5</var>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${pet_data}</var>
+<arg>id=70${i}</arg>
+<arg>name=MultiPet70${i}</arg>
+<arg>status=available</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251130 16:49:20.198" level="INFO">${pet_data} = {'id': '705', 'name': 'MultiPet705', 'status': 'available'}</msg>
+<status status="PASS" starttime="20251130 16:49:20.196" endtime="20251130 16:49:20.198"/>
+</kw>
+<kw name="Create Pet" library="AdvancedPetstoreLibrary">
+<arg>${pet_data}</arg>
+<doc>Public method - creates a pet</doc>
+<msg timestamp="20251130 16:49:20.330" level="DEBUG">https://petstore.swagger.io:443 "POST /v2/pet HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:20.198" endtime="20251130 16:49:20.331"/>
+</kw>
+<kw name="Should Be Status" library="AdvancedPetstoreLibrary">
+<arg>200</arg>
+<doc>Public method - asserts response status</doc>
+<status status="PASS" starttime="20251130 16:49:20.331" endtime="20251130 16:49:20.332"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Created pet 70${i} - testing inherited methods</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:20.333" level="INFO">Created pet 705 - testing inherited methods</msg>
+<status status="PASS" starttime="20251130 16:49:20.332" endtime="20251130 16:49:20.333"/>
+</kw>
+<status status="PASS" starttime="20251130 16:49:20.196" endtime="20251130 16:49:20.333"/>
+</iter>
+<status status="PASS" starttime="20251130 16:49:19.638" endtime="20251130 16:49:20.333"/>
+</for>
+<kw name="Get Performance Stats" library="AdvancedPetstoreLibrary">
+<var>${performance_stats}</var>
+<doc>Public method to access private performance data
+Demonstrates encapsulation - private data accessed via public interface</doc>
+<msg timestamp="20251130 16:49:20.336" level="INFO">${performance_stats} = {'total_operations': 8, 'average_duration': 0.271975125, 'min_duration': 0.130416, 'max_duration': 1.111883, 'recent_operations': [{'operation': 'create_pet', 'duration': 0.136761, 'timestamp': dateti...</msg>
+<status status="PASS" starttime="20251130 16:49:20.335" endtime="20251130 16:49:20.336"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Multi-operation stats: ${performance_stats}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:20.338" level="INFO">Multi-operation stats: {'total_operations': 8, 'average_duration': 0.271975125, 'min_duration': 0.130416, 'max_duration': 1.111883, 'recent_operations': [{'operation': 'create_pet', 'duration': 0.136761, 'timestamp': datetime.datetime(2025, 11, 30, 16, 49, 19, 779235)}, {'operation': 'create_pet', 'duration': 0.134041, 'timestamp': datetime.datetime(2025, 11, 30, 16, 49, 19, 919207)}, {'operation': 'create_pet', 'duration': 0.132838, 'timestamp': datetime.datetime(2025, 11, 30, 16, 49, 20, 56906)}, {'operation': 'create_pet', 'duration': 0.131766, 'timestamp': datetime.datetime(2025, 11, 30, 16, 49, 20, 193679)}, {'operation': 'create_pet', 'duration': 0.13226, 'timestamp': datetime.datetime(2025, 11, 30, 16, 49, 20, 330743)}]}</msg>
+<status status="PASS" starttime="20251130 16:49:20.337" endtime="20251130 16:49:20.339"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${performance_stats['total_operations']} &gt;= 5</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20251130 16:49:20.340" endtime="20251130 16:49:20.344"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${performance_stats['average_duration']} &gt;= 0</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20251130 16:49:20.346" endtime="20251130 16:49:20.349"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Super() usage verified in performance tracking</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:20.351" level="INFO">Super() usage verified in performance tracking</msg>
+<status status="PASS" starttime="20251130 16:49:20.351" endtime="20251130 16:49:20.351"/>
+</kw>
+<kw name="Cleanup Created" library="AdvancedPetstoreLibrary" type="TEARDOWN">
+<doc>Public method - enhanced cleanup with performance tracking
+Demonstrates using both protected and private methods</doc>
+<msg timestamp="20251130 16:49:20.486" level="DEBUG">https://petstore.swagger.io:443 "DELETE /v2/pet/701 HTTP/1.1" 200 None</msg>
+<msg timestamp="20251130 16:49:20.614" level="DEBUG">https://petstore.swagger.io:443 "DELETE /v2/pet/702 HTTP/1.1" 200 None</msg>
+<msg timestamp="20251130 16:49:20.745" level="DEBUG">https://petstore.swagger.io:443 "DELETE /v2/pet/703 HTTP/1.1" 200 None</msg>
+<msg timestamp="20251130 16:49:20.875" level="DEBUG">https://petstore.swagger.io:443 "DELETE /v2/pet/704 HTTP/1.1" 200 None</msg>
+<msg timestamp="20251130 16:49:21.003" level="DEBUG">https://petstore.swagger.io:443 "DELETE /v2/pet/705 HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:20.353" endtime="20251130 16:49:21.004"/>
+</kw>
+<doc>Tests inheritance and method overriding with multiple operations</doc>
+<status status="PASS" starttime="20251130 16:49:19.635" endtime="20251130 16:49:21.006"/>
+</test>
+<test id="s1-t3" name="Test Access Modifiers And Encapsulation" line="74">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${user_data}</var>
+<arg>id=9999</arg>
+<arg>username=encapsulation_test</arg>
+<arg>firstName=Encapsulation</arg>
+<arg>lastName=Test</arg>
+<arg>email=encapsulation@example.com</arg>
+<arg>password=pass123</arg>
+<arg>phone=+100000000</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251130 16:49:21.014" level="INFO">${user_data} = {'id': '9999', 'username': 'encapsulation_test', 'firstName': 'Encapsulation', 'lastName': 'Test', 'email': 'encapsulation@example.com', 'password': 'pass123', 'phone': '+100000000'}</msg>
+<status status="PASS" starttime="20251130 16:49:21.012" endtime="20251130 16:49:21.014"/>
+</kw>
+<kw name="Create User" library="AdvancedPetstoreLibrary">
+<arg>${user_data}</arg>
+<doc>Public method - creates a user
+Demonstrates using protected methods from parent class</doc>
+<msg timestamp="20251130 16:49:21.148" level="DEBUG">https://petstore.swagger.io:443 "POST /v2/user HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:21.015" endtime="20251130 16:49:21.151"/>
+</kw>
+<kw name="Should Be Status" library="AdvancedPetstoreLibrary">
+<arg>200</arg>
+<doc>Public method - asserts response status</doc>
+<status status="PASS" starttime="20251130 16:49:21.153" endtime="20251130 16:49:21.153"/>
+</kw>
+<kw name="Get Last Json" library="AdvancedPetstoreLibrary">
+<var>${json_response}</var>
+<doc>Public method - gets last JSON response</doc>
+<msg timestamp="20251130 16:49:21.156" level="INFO">${json_response} = {'code': 200, 'type': 'unknown', 'message': '9999'}</msg>
+<status status="PASS" starttime="20251130 16:49:21.155" endtime="20251130 16:49:21.156"/>
+</kw>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<arg>${json_response}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<msg timestamp="20251130 16:49:21.158" level="INFO">Length is 3</msg>
+<status status="PASS" starttime="20251130 16:49:21.157" endtime="20251130 16:49:21.158"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Public methods provide access to needed data</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:21.160" level="INFO">Public methods provide access to needed data</msg>
+<status status="PASS" starttime="20251130 16:49:21.160" endtime="20251130 16:49:21.160"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Encapsulation verified - private methods are properly hidden</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:21.162" level="INFO">Encapsulation verified - private methods are properly hidden</msg>
+<status status="PASS" starttime="20251130 16:49:21.162" endtime="20251130 16:49:21.163"/>
+</kw>
+<kw name="Cleanup Created" library="AdvancedPetstoreLibrary" type="TEARDOWN">
+<doc>Public method - enhanced cleanup with performance tracking
+Demonstrates using both protected and private methods</doc>
+<msg timestamp="20251130 16:49:21.297" level="DEBUG">https://petstore.swagger.io:443 "DELETE /v2/user/encapsulation_test HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:21.164" endtime="20251130 16:49:21.298"/>
+</kw>
+<doc>Tests that encapsulation is working properly</doc>
+<status status="PASS" starttime="20251130 16:49:21.010" endtime="20251130 16:49:21.300"/>
+</test>
+<test id="s1-t4" name="Test Cleanup And Resource Management" line="100">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${user_data}</var>
+<arg>id=9001</arg>
+<arg>username=cleanup_test_user</arg>
+<arg>firstName=Cleanup</arg>
+<arg>lastName=Test</arg>
+<arg>email=cleanup@example.com</arg>
+<arg>password=pass123</arg>
+<arg>phone=+100000000</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251130 16:49:21.307" level="INFO">${user_data} = {'id': '9001', 'username': 'cleanup_test_user', 'firstName': 'Cleanup', 'lastName': 'Test', 'email': 'cleanup@example.com', 'password': 'pass123', 'phone': '+100000000'}</msg>
+<status status="PASS" starttime="20251130 16:49:21.306" endtime="20251130 16:49:21.307"/>
+</kw>
+<kw name="Create User" library="AdvancedPetstoreLibrary">
+<arg>${user_data}</arg>
+<doc>Public method - creates a user
+Demonstrates using protected methods from parent class</doc>
+<msg timestamp="20251130 16:49:21.443" level="DEBUG">https://petstore.swagger.io:443 "POST /v2/user HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:21.309" endtime="20251130 16:49:21.445"/>
+</kw>
+<kw name="Should Be Status" library="AdvancedPetstoreLibrary">
+<arg>200</arg>
+<doc>Public method - asserts response status</doc>
+<status status="PASS" starttime="20251130 16:49:21.446" endtime="20251130 16:49:21.447"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${pet_data}</var>
+<arg>id=9002</arg>
+<arg>name=cleanup_test_pet</arg>
+<arg>status=available</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251130 16:49:21.450" level="INFO">${pet_data} = {'id': '9002', 'name': 'cleanup_test_pet', 'status': 'available'}</msg>
+<status status="PASS" starttime="20251130 16:49:21.449" endtime="20251130 16:49:21.450"/>
+</kw>
+<kw name="Create Pet" library="AdvancedPetstoreLibrary">
+<arg>${pet_data}</arg>
+<doc>Public method - creates a pet</doc>
+<msg timestamp="20251130 16:49:21.582" level="DEBUG">https://petstore.swagger.io:443 "POST /v2/pet HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:21.451" endtime="20251130 16:49:21.583"/>
+</kw>
+<kw name="Should Be Status" library="AdvancedPetstoreLibrary">
+<arg>200</arg>
+<doc>Public method - asserts response status</doc>
+<status status="PASS" starttime="20251130 16:49:21.585" endtime="20251130 16:49:21.586"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Created 2 entities for cleanup test</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:21.588" level="INFO">Created 2 entities for cleanup test</msg>
+<status status="PASS" starttime="20251130 16:49:21.587" endtime="20251130 16:49:21.588"/>
+</kw>
+<kw name="Cleanup Created" library="AdvancedPetstoreLibrary">
+<doc>Public method - enhanced cleanup with performance tracking
+Demonstrates using both protected and private methods</doc>
+<msg timestamp="20251130 16:49:21.723" level="DEBUG">https://petstore.swagger.io:443 "DELETE /v2/user/cleanup_test_user HTTP/1.1" 200 None</msg>
+<msg timestamp="20251130 16:49:21.856" level="DEBUG">https://petstore.swagger.io:443 "DELETE /v2/pet/9002 HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:21.590" endtime="20251130 16:49:21.857"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Cleanup completed - OOP resource management working</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:21.860" level="INFO">Cleanup completed - OOP resource management working</msg>
+<status status="PASS" starttime="20251130 16:49:21.859" endtime="20251130 16:49:21.860"/>
+</kw>
+<doc>Tests that cleanup properly manages resources using OOP principles</doc>
+<status status="PASS" starttime="20251130 16:49:21.304" endtime="20251130 16:49:21.863"/>
+</test>
+<test id="s1-t5" name="Test Singleton Pattern" line="135">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${pet_data1}</var>
+<arg>id=9501</arg>
+<arg>name=SingletonPet1</arg>
+<arg>status=available</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251130 16:49:21.870" level="INFO">${pet_data1} = {'id': '9501', 'name': 'SingletonPet1', 'status': 'available'}</msg>
+<status status="PASS" starttime="20251130 16:49:21.869" endtime="20251130 16:49:21.870"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${pet_data2}</var>
+<arg>id=9502</arg>
+<arg>name=SingletonPet2</arg>
+<arg>status=available</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251130 16:49:21.874" level="INFO">${pet_data2} = {'id': '9502', 'name': 'SingletonPet2', 'status': 'available'}</msg>
+<status status="PASS" starttime="20251130 16:49:21.872" endtime="20251130 16:49:21.874"/>
+</kw>
+<kw name="Create Pet" library="AdvancedPetstoreLibrary">
+<arg>${pet_data1}</arg>
+<doc>Public method - creates a pet</doc>
+<msg timestamp="20251130 16:49:22.009" level="DEBUG">https://petstore.swagger.io:443 "POST /v2/pet HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:21.876" endtime="20251130 16:49:22.010"/>
+</kw>
+<kw name="Should Be Status" library="AdvancedPetstoreLibrary">
+<arg>200</arg>
+<doc>Public method - asserts response status</doc>
+<status status="PASS" starttime="20251130 16:49:22.012" endtime="20251130 16:49:22.013"/>
+</kw>
+<kw name="Create Pet" library="AdvancedPetstoreLibrary">
+<arg>${pet_data2}</arg>
+<doc>Public method - creates a pet</doc>
+<msg timestamp="20251130 16:49:22.146" level="DEBUG">https://petstore.swagger.io:443 "POST /v2/pet HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:22.014" endtime="20251130 16:49:22.147"/>
+</kw>
+<kw name="Should Be Status" library="AdvancedPetstoreLibrary">
+<arg>200</arg>
+<doc>Public method - asserts response status</doc>
+<status status="PASS" starttime="20251130 16:49:22.149" endtime="20251130 16:49:22.149"/>
+</kw>
+<kw name="Get Performance Stats" library="AdvancedPetstoreLibrary">
+<var>${performance_stats}</var>
+<doc>Public method to access private performance data
+Demonstrates encapsulation - private data accessed via public interface</doc>
+<msg timestamp="20251130 16:49:22.152" level="INFO">${performance_stats} = {'total_operations': 16, 'average_duration': 0.24315725, 'min_duration': 0.130416, 'max_duration': 1.111883, 'recent_operations': [{'operation': 'create_user', 'duration': 0.13444, 'timestamp': dateti...</msg>
+<status status="PASS" starttime="20251130 16:49:22.151" endtime="20251130 16:49:22.152"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${performance_stats['total_operations']} &gt;= 2</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20251130 16:49:22.153" endtime="20251130 16:49:22.157"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Singleton pattern working - same instance used for multiple operations</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20251130 16:49:22.159" level="INFO">Singleton pattern working - same instance used for multiple operations</msg>
+<status status="PASS" starttime="20251130 16:49:22.158" endtime="20251130 16:49:22.159"/>
+</kw>
+<kw name="Cleanup Created" library="AdvancedPetstoreLibrary" type="TEARDOWN">
+<doc>Public method - enhanced cleanup with performance tracking
+Demonstrates using both protected and private methods</doc>
+<msg timestamp="20251130 16:49:22.294" level="DEBUG">https://petstore.swagger.io:443 "DELETE /v2/pet/9501 HTTP/1.1" 200 None</msg>
+<msg timestamp="20251130 16:49:22.589" level="DEBUG">https://petstore.swagger.io:443 "DELETE /v2/pet/9502 HTTP/1.1" 200 None</msg>
+<status status="PASS" starttime="20251130 16:49:22.162" endtime="20251130 16:49:22.590"/>
+</kw>
+<doc>Tests that Singleton pattern ensures only one instance</doc>
+<status status="PASS" starttime="20251130 16:49:21.867" endtime="20251130 16:49:22.591"/>
+</test>
+<status status="PASS" starttime="20251130 16:49:17.919" endtime="20251130 16:49:22.593"/>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0" skip="0">All Tests</stat>
+<stat pass="5" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="Test Pet">Test Pet</stat>
+<stat pass="5" fail="0" skip="0" id="s1" name="Test Oop Features">Test Oop Features</stat>
 </suite>
 </statistics>
 <errors>
