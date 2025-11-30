@@ -1,90 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.1.1 (Python 3.13.5 on win32)" generated="20251130 13:48:04.153" rpa="false" schemaversion="4">
-<suite id="s1" name="Test User" source="C:\Repo\petstore\tests\test_user.robot">
-<test id="s1-t1" name="Create Get Update Delete User Flow" line="5">
+<robot generator="Robot 6.1.1 (Python 3.13.5 on win32)" generated="20251130 14:32:52.952" rpa="false" schemaversion="4">
+<suite id="s1" name="Test Pet" source="C:\Repo\petstore\tests\test_pet.robot">
+<test id="s1-t1" name="Create And Find Pet By Status" line="5">
 <kw name="Create Dictionary" library="BuiltIn">
-<var>${user}</var>
-<arg>id=2001</arg>
-<arg>username=temp_user_2001</arg>
-<arg>firstName=Temp</arg>
-<arg>lastName=User</arg>
-<arg>email=temp@example.com</arg>
-<arg>password=pass2001</arg>
-<arg>phone=+2001</arg>
+<var>${pet}</var>
+<arg>id=77777</arg>
+<arg>name=RoboDog</arg>
+<arg>category=${{{"id":1,"name":"Dogs"}}}</arg>
+<arg>photoUrls=${{["http://example.com/dog.jpg"]}}</arg>
+<arg>tags=${{[{"id":1,"name":"tag1"}]}}</arg>
+<arg>status=available</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20251130 13:48:04.319" level="INFO">${user} = {'id': '2001', 'username': 'temp_user_2001', 'firstName': 'Temp', 'lastName': 'User', 'email': 'temp@example.com', 'password': 'pass2001', 'phone': '+2001'}</msg>
-<status status="PASS" starttime="20251130 13:48:04.318" endtime="20251130 13:48:04.319"/>
+<msg timestamp="20251130 14:32:53.121" level="INFO">${pet} = {'id': '77777', 'name': 'RoboDog', 'category': {'id': 1, 'name': 'Dogs'}, 'photoUrls': ['http://example.com/dog.jpg'], 'tags': [{'id': 1, 'name': 'tag1'}], 'status': 'available'}</msg>
+<status status="PASS" starttime="20251130 14:32:53.120" endtime="20251130 14:32:53.122"/>
 </kw>
-<kw name="Create User" library="PetstoreLibrary">
-<arg>${user}</arg>
-<status status="PASS" starttime="20251130 13:48:04.319" endtime="20251130 13:48:05.484"/>
+<kw name="Create Pet" library="PetstoreLibrary">
+<arg>${pet}</arg>
+<status status="PASS" starttime="20251130 14:32:53.122" endtime="20251130 14:32:54.212"/>
 </kw>
-<kw name="Should Be Status">
+<kw name="Should Be Status" library="PetstoreLibrary">
 <arg>200</arg>
-<msg timestamp="20251130 13:48:05.492" level="FAIL">No keyword with name 'Should Be Status' found.</msg>
-<status status="FAIL" starttime="20251130 13:48:05.491" endtime="20251130 13:48:05.492"/>
+<status status="PASS" starttime="20251130 14:32:54.212" endtime="20251130 14:32:54.213"/>
 </kw>
-<kw name="Get User" library="PetstoreLibrary">
-<arg>temp_user_2001</arg>
-<status status="NOT RUN" starttime="20251130 13:48:05.493" endtime="20251130 13:48:05.493"/>
+<kw name="Find Pets By Status" library="PetstoreLibrary">
+<arg>available</arg>
+<status status="PASS" starttime="20251130 14:32:54.213" endtime="20251130 14:32:55.663"/>
 </kw>
-<kw name="Should Be Status">
+<kw name="Should Be Status" library="PetstoreLibrary">
 <arg>200</arg>
-<status status="NOT RUN" starttime="20251130 13:48:05.497" endtime="20251130 13:48:05.497"/>
+<status status="PASS" starttime="20251130 14:32:55.663" endtime="20251130 14:32:55.664"/>
 </kw>
-<kw name="Get Last Json">
-<var>${json}</var>
-<status status="NOT RUN" starttime="20251130 13:48:05.502" endtime="20251130 13:48:05.502"/>
+<kw name="Get Last Json" library="PetstoreLibrary">
+<var>${list}</var>
+<msg timestamp="20251130 14:32:55.675" level="INFO">${list} = [{'id': 152, 'category': {'id': 0, 'name': 'string'}, 'name': 'Moggie', 'photoUrls': ['string'], 'tags': [{'id': 0, 'name': 'string'}], 'status': 'available'}, {'id': 867, 'category': {'id': 0, 'name'...</msg>
+<status status="PASS" starttime="20251130 14:32:55.664" endtime="20251130 14:32:55.675"/>
 </kw>
 <kw name="Log" library="BuiltIn">
-<arg>${json}</arg>
+<arg>Found ${list.__len__()} pets</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="NOT RUN" starttime="20251130 13:48:05.503" endtime="20251130 13:48:05.503"/>
+<msg timestamp="20251130 14:32:55.676" level="INFO">Found 661 pets</msg>
+<status status="PASS" starttime="20251130 14:32:55.676" endtime="20251130 14:32:55.677"/>
 </kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${update}</var>
-<arg>id=2001</arg>
-<arg>username=temp_user_2001</arg>
-<arg>firstName=Temp2</arg>
-<arg>lastName=User2</arg>
-<arg>email=temp2@example.com</arg>
-<arg>password=pass2001</arg>
-<arg>phone=+2001</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="NOT RUN" starttime="20251130 13:48:05.504" endtime="20251130 13:48:05.504"/>
+<kw name="Get Pet" library="PetstoreLibrary">
+<arg>77777</arg>
+<status status="PASS" starttime="20251130 14:32:55.677" endtime="20251130 14:32:56.913"/>
 </kw>
-<kw name="Update User" library="PetstoreLibrary">
-<arg>temp_user_2001</arg>
-<arg>${update}</arg>
-<status status="NOT RUN" starttime="20251130 13:48:05.505" endtime="20251130 13:48:05.505"/>
-</kw>
-<kw name="Should Be Status">
+<kw name="Should Be Status" library="PetstoreLibrary">
 <arg>200</arg>
-<status status="NOT RUN" starttime="20251130 13:48:05.509" endtime="20251130 13:48:05.509"/>
+<status status="PASS" starttime="20251130 14:32:56.915" endtime="20251130 14:32:56.915"/>
 </kw>
-<kw name="Delete User" library="PetstoreLibrary">
-<arg>temp_user_2001</arg>
-<status status="NOT RUN" starttime="20251130 13:48:05.509" endtime="20251130 13:48:05.509"/>
+<kw name="Delete Pet" library="PetstoreLibrary">
+<arg>77777</arg>
+<status status="PASS" starttime="20251130 14:32:56.918" endtime="20251130 14:32:58.005"/>
 </kw>
-<kw name="Should Be Status">
+<kw name="Should Be Status" library="PetstoreLibrary">
 <arg>200</arg>
-<status status="NOT RUN" starttime="20251130 13:48:05.512" endtime="20251130 13:48:05.512"/>
+<status status="PASS" starttime="20251130 14:32:58.006" endtime="20251130 14:32:58.007"/>
 </kw>
-<kw name="Cleanup Created">
-<status status="NOT RUN" starttime="20251130 13:48:05.515" endtime="20251130 13:48:05.515"/>
+<kw name="Cleanup Created" library="PetstoreLibrary">
+<status status="PASS" starttime="20251130 14:32:58.008" endtime="20251130 14:32:59.090"/>
 </kw>
-<status status="FAIL" starttime="20251130 13:48:04.318" endtime="20251130 13:48:05.516">No keyword with name 'Should Be Status' found.</status>
+<status status="PASS" starttime="20251130 14:32:53.119" endtime="20251130 14:32:59.092"/>
 </test>
-<status status="FAIL" starttime="20251130 13:48:04.155" endtime="20251130 13:48:05.517"/>
+<status status="PASS" starttime="20251130 14:32:52.955" endtime="20251130 14:32:59.098"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="1" skip="0">All Tests</stat>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="1" skip="0" id="s1" name="Test User">Test User</stat>
+<stat pass="1" fail="0" skip="0" id="s1" name="Test Pet">Test Pet</stat>
 </suite>
 </statistics>
 <errors>
