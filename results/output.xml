@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.13.5 on win32)" generated="20251130 13:48:04.153" rpa="false" schemaversion="4">
+<suite id="s1" name="Test User" source="C:\Repo\petstore\tests\test_user.robot">
+<test id="s1-t1" name="Create Get Update Delete User Flow" line="5">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${user}</var>
+<arg>id=2001</arg>
+<arg>username=temp_user_2001</arg>
+<arg>firstName=Temp</arg>
+<arg>lastName=User</arg>
+<arg>email=temp@example.com</arg>
+<arg>password=pass2001</arg>
+<arg>phone=+2001</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20251130 13:48:04.319" level="INFO">${user} = {'id': '2001', 'username': 'temp_user_2001', 'firstName': 'Temp', 'lastName': 'User', 'email': 'temp@example.com', 'password': 'pass2001', 'phone': '+2001'}</msg>
+<status status="PASS" starttime="20251130 13:48:04.318" endtime="20251130 13:48:04.319"/>
+</kw>
+<kw name="Create User" library="PetstoreLibrary">
+<arg>${user}</arg>
+<status status="PASS" starttime="20251130 13:48:04.319" endtime="20251130 13:48:05.484"/>
+</kw>
+<kw name="Should Be Status">
+<arg>200</arg>
+<msg timestamp="20251130 13:48:05.492" level="FAIL">No keyword with name 'Should Be Status' found.</msg>
+<status status="FAIL" starttime="20251130 13:48:05.491" endtime="20251130 13:48:05.492"/>
+</kw>
+<kw name="Get User" library="PetstoreLibrary">
+<arg>temp_user_2001</arg>
+<status status="NOT RUN" starttime="20251130 13:48:05.493" endtime="20251130 13:48:05.493"/>
+</kw>
+<kw name="Should Be Status">
+<arg>200</arg>
+<status status="NOT RUN" starttime="20251130 13:48:05.497" endtime="20251130 13:48:05.497"/>
+</kw>
+<kw name="Get Last Json">
+<var>${json}</var>
+<status status="NOT RUN" starttime="20251130 13:48:05.502" endtime="20251130 13:48:05.502"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${json}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20251130 13:48:05.503" endtime="20251130 13:48:05.503"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${update}</var>
+<arg>id=2001</arg>
+<arg>username=temp_user_2001</arg>
+<arg>firstName=Temp2</arg>
+<arg>lastName=User2</arg>
+<arg>email=temp2@example.com</arg>
+<arg>password=pass2001</arg>
+<arg>phone=+2001</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="NOT RUN" starttime="20251130 13:48:05.504" endtime="20251130 13:48:05.504"/>
+</kw>
+<kw name="Update User" library="PetstoreLibrary">
+<arg>temp_user_2001</arg>
+<arg>${update}</arg>
+<status status="NOT RUN" starttime="20251130 13:48:05.505" endtime="20251130 13:48:05.505"/>
+</kw>
+<kw name="Should Be Status">
+<arg>200</arg>
+<status status="NOT RUN" starttime="20251130 13:48:05.509" endtime="20251130 13:48:05.509"/>
+</kw>
+<kw name="Delete User" library="PetstoreLibrary">
+<arg>temp_user_2001</arg>
+<status status="NOT RUN" starttime="20251130 13:48:05.509" endtime="20251130 13:48:05.509"/>
+</kw>
+<kw name="Should Be Status">
+<arg>200</arg>
+<status status="NOT RUN" starttime="20251130 13:48:05.512" endtime="20251130 13:48:05.512"/>
+</kw>
+<kw name="Cleanup Created">
+<status status="NOT RUN" starttime="20251130 13:48:05.515" endtime="20251130 13:48:05.515"/>
+</kw>
+<status status="FAIL" starttime="20251130 13:48:04.318" endtime="20251130 13:48:05.516">No keyword with name 'Should Be Status' found.</status>
+</test>
+<status status="FAIL" starttime="20251130 13:48:04.155" endtime="20251130 13:48:05.517"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Test User">Test User</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
