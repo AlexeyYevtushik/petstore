@@ -1,4 +1,4 @@
-Here's a clean, professional README.md file without icons, following GitHub's formatting conventions:
+Here's the updated README.md with the requested sections removed:
 
 ```markdown
 # Petstore API Project
@@ -10,12 +10,10 @@ A RESTful API implementation for a pet store system.
 1. [Project Overview](#project-overview)
 2. [Features](#features)
 3. [Installation](#installation)
-4. [Usage](#usage)
-5. [API Endpoints](#api-endpoints)
-6. [Database Schema](#database-schema)
-7. [Testing](#testing)
-8. [Contributing](#contributing)
-9. [License](#license)
+4. [API Endpoints](#api-endpoints)
+5. [Testing](#testing)
+6. [Contributing](#contributing)
+7. [License](#license)
 
 ## Project Overview
 
@@ -43,8 +41,8 @@ This project implements a Petstore API that allows users to manage pets, store i
 
 ### Prerequisites
 - Python 3.8 or higher
-- PostgreSQL 12+ or MySQL 8+
 - Git
+- Robot Framework
 
 ### Setup Instructions
 
@@ -65,41 +63,12 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Configure environment variables:
+4. Install Robot Framework and testing libraries:
 ```bash
-cp .env.example .env
-# Edit .env file with your database credentials
+pip install robotframework
+pip install robotframework-requests
+pip install robotframework-databaselibrary
 ```
-
-5. Set up the database:
-```bash
-python setup_database.py
-```
-
-6. Run the application:
-```bash
-python app.py
-```
-
-## Usage
-
-### Starting the Server
-
-**Development mode:**
-```bash
-python app.py --dev
-```
-
-**Production mode:**
-```bash
-python app.py --prod
-```
-
-### Access Points
-
-- API Documentation: http://localhost:8000/docs
-- API Base URL: http://localhost:8000/api/v1
-- Health Check: http://localhost:8000/health
 
 ## API Endpoints
 
@@ -174,111 +143,119 @@ Log in user.
 #### GET /user/logout
 Log out current user.
 
-## Database Schema
-
-### 1. Pets Table
-- `id`: INTEGER (Primary Key, Auto Increment)
-- `name`: VARCHAR(255) (Not Null)
-- `category`: VARCHAR(100)
-- `status`: ENUM('available', 'pending', 'sold') (Default: 'available')
-- `tags`: JSON
-- `photo_urls`: JSON
-- `created_at`: TIMESTAMP (Default: CURRENT_TIMESTAMP)
-- `updated_at`: TIMESTAMP (Default: CURRENT_TIMESTAMP, On Update)
-
-### 2. Orders Table
-- `id`: INTEGER (Primary Key, Auto Increment)
-- `pet_id`: INTEGER (Foreign Key references pets.id)
-- `quantity`: INTEGER (Default: 1)
-- `ship_date`: TIMESTAMP
-- `status`: ENUM('placed', 'approved', 'delivered') (Default: 'placed')
-- `complete`: BOOLEAN (Default: false)
-- `created_at`: TIMESTAMP (Default: CURRENT_TIMESTAMP)
-
-### 3. Users Table
-- `id`: INTEGER (Primary Key, Auto Increment)
-- `username`: VARCHAR(100) (Unique, Not Null)
-- `email`: VARCHAR(255) (Unique, Not Null)
-- `password_hash`: VARCHAR(255) (Not Null)
-- `first_name`: VARCHAR(100)
-- `last_name`: VARCHAR(100)
-- `phone`: VARCHAR(20)
-- `user_status`: INTEGER (Default: 1)
-- `created_at`: TIMESTAMP (Default: CURRENT_TIMESTAMP)
-- `updated_at`: TIMESTAMP (Default: CURRENT_TIMESTAMP, On Update)
-
 ## Testing
+
+### Robot Framework Test Structure
+
+The project uses Robot Framework for automated testing. The test structure is organized as follows:
+
+```
+tests/
+├── api/
+│   ├── pet_tests.robot       # Pet API tests
+│   ├── store_tests.robot     # Store API tests
+│   └── user_tests.robot      # User API tests
+├── resources/
+│   ├── common.robot          # Common keywords and setup
+│   ├── api_client.robot      # API client configuration
+│   └── test_data.robot       # Test data variables
+└── results/                  # Test results and logs
+```
 
 ### Running Tests
 
-To run the test suite:
-
+Run all tests:
 ```bash
-# Run all tests
-python -m pytest
-
-# Run tests with coverage report
-python -m pytest --cov=app tests/
-
-# Run specific test file
-python -m pytest tests/test_pets.py
-
-# Run with verbose output
-python -m pytest -v
+robot tests/
 ```
-
-### Test Structure
-- `tests/unit/` - Unit tests for individual components
-- `tests/integration/` - Integration tests for API endpoints
-- `tests/fixtures/` - Test data and fixtures
 
 ### Test Examples
 
-Example unit test for pet creation:
-```python
-def test_create_pet():
-    pet_data = {"name": "Max", "category": "Dog", "status": "available"}
-    response = client.post("/pet", json=pet_data)
-    assert response.status_code == 201
-    assert response.json()["name"] == "Max"
+#### Example Robot Test Case (tests/api/pet_tests.robot)
+```robotframework
+*** Settings ***
+Resource    ../resources/common.robot
+Resource    ../resources/api_client.robot
+Test Setup    Setup Test
+Test Teardown    Teardown Test
+
+*** Test Cases ***
+Create Pet Successfully
+    [Documentation]    Test creating a new pet
+    [Tags]    smoke    pet    create
+    ${pet_data}=    Create Dictionary
+    ...    name=Max
+    ...    category=Dog
+    ...    status=available
+    
+    ${response}=    POST    /pet    json=${pet_data}
+    Status Should Be    201    ${response}
+    
+    ${pet_id}=    Get From Dictionary    ${response.json()}    id
+    Set Suite Variable    ${PET_ID}    ${pet_id}
+    
+    Dictionary Should Contain Key    ${response.json()}    name
+    Should Be Equal    ${response.json()}[name]    Max
+
+Get Pet By ID
+    [Documentation]    Test retrieving a pet by ID
+    [Tags]    smoke    pet    read
+    ${response}=    GET    /pet/${PET_ID}
+    Status Should Be    200    ${response}
+    Should Be Equal    ${response.json()}[id]    ${PET_ID}
+
+Update Pet
+    [Documentation]    Test updating pet information
+    [Tags]    pet    update
+    ${update_data}=    Create Dictionary
+    ...    name=Max Updated
+    ...    status=sold
+    
+    ${response}=    PUT    /pet/${PET_ID}    json=${update_data}
+    Status Should Be    200    ${response}
+    Should Be Equal    ${response.json()}[name]    Max Updated
+    Should Be Equal    ${response.json()}[status]    sold
 ```
 
-## Contributing
+#### Example Resource File (tests/resources/common.robot)
+```robotframework
+*** Settings ***
+Library    RequestsLibrary
+Library    Collections
+Library    OperatingSystem
 
-We welcome contributions to the Petstore project! Please follow these steps:
+*** Variables ***
+${BASE_URL}    http://localhost:8000/api/v1
+${TIMEOUT}     10
 
-### 1. Fork the Repository
-Fork the repository to your GitHub account.
+*** Keywords ***
+Setup Test
+    Create Session    petstore    ${BASE_URL}    timeout=${TIMEOUT}
+    Log    Test setup completed
 
-### 2. Create a Branch
-```bash
-git checkout -b feature/your-feature-name
+Teardown Test
+    Delete All Sessions
+    Log    Test teardown completed
+
+Status Should Be
+    [Arguments]    ${expected_status}    ${response}
+    ${actual_status}=    Convert To Integer    ${response.status_code}
+    Should Be Equal As Numbers    ${actual_status}    ${expected_status}
+    ...    msg=Expected status ${expected_status} but got ${actual_status}
 ```
 
-### 3. Make Changes
-Implement your feature or bug fix.
+### Test Reports
 
-### 4. Add Tests
-Ensure your changes are covered by tests.
-
-### 5. Commit Changes
-```bash
-git add .
-git commit -m "Add: Description of your changes"
-```
-
-### 6. Push to Your Fork
-```bash
-git push origin feature/your-feature-name
-```
-
-### 7. Create Pull Request
-Open a pull request on the original repository with a clear description of your changes.
+After running tests, Robot Framework generates the following reports:
+- `log.html` - Detailed test execution log
+- `report.html` - High-level test report
+- `output.xml` - Machine-readable XML output
 
 ### Coding Standards
 - Follow PEP 8 for Python code
 - Write meaningful commit messages
 - Add docstrings for all functions and classes
+- Write Robot Framework tests for new features
 - Update documentation when needed
 
 ## License
@@ -295,19 +272,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Inspired by the OpenAPI Petstore example
 - Built with FastAPI/Flask (specify your framework)
+- Test automation with Robot Framework
 - Thanks to all contributors
 ```
-
-This version:
-1. **Removes all icons/emojis** for a clean, professional look
-2. **Maintains proper numbering** throughout all sections
-3. **Uses clear headings** with consistent formatting
-4. **Includes practical examples** of API requests/responses
-5. **Provides detailed database schema** with field descriptions
-6. **Offers comprehensive testing instructions**
-7. **Includes clear contribution guidelines**
-8. **Follows GitHub's markdown best practices**
-9. **Has complete contact information**
-10. **Uses proper code blocks** with language specification
-
-The README is now ready to be copied directly into your repository.
