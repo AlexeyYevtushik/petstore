@@ -1,5 +1,3 @@
-Here's the updated README.md with the requested sections removed:
-
 ```markdown
 # Petstore API Project
 
